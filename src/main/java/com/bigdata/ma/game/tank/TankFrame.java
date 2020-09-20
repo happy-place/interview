@@ -5,15 +5,19 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TankFrame extends Frame {
 
     // 窗口尺寸
-    private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
+    private static final int WIDTH = 800;
 
     Tank myTank = new Tank(200,200,Dir.DOWN,this);
-    Bullet bullet = new Bullet(300,300,Dir.DOWN);
+
+    // 坦克发射子弹，换成批
+    private List<Bullet> bullets = new ArrayList<>();
 
     // 双缓冲解决画面闪烁问题: 图片先写入缓存，然后一次性提交给显卡
     Image offScreenImage = null;
@@ -48,10 +52,20 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         // 需要谁，就把画笔交给谁
+        drawString(g);
         myTank.paint(g);
-        bullet.paint(g);
+
+        for(int i=0;i<bullets.size();i++){
+            bullets.get(i).paint(g);
+        }
     }
 
+    private void drawString(Graphics g){
+        Color color = g.getColor();
+        g.setColor(Color.WHITE);
+        g.drawString("子弹数量："+bullets.size(),10,60);
+        g.setColor(color);
+    }
 
 
     /**
@@ -170,5 +184,17 @@ public class TankFrame extends Frame {
         paint(gOffScreen); // 往内存里话需要的东西
         // 画完后一次性提交显卡
         g.drawImage(offScreenImage,0,0,null);
+    }
+
+    public static int getHEIGHT() {
+        return HEIGHT;
+    }
+
+    public static int getWIDTH() {
+        return WIDTH;
+    }
+
+    public List<Bullet> getBullets() {
+        return bullets;
     }
 }

@@ -69,6 +69,6 @@ public class Tank {
 
     public void fire() {
         // 要想让tank开火中能够像画面交出bullet，tank 对象创建时，需要持有tankFrame 对象引用
-        tf.bullet = new Bullet(this.x,this.y,this.dir);
+        tf.getBullets().add(new Bullet(this.x,this.y,this.dir,tf));
     }
 }
