@@ -4,9 +4,9 @@ import java.awt.*;
 import java.util.Random;
 
 public class Tank {
-    private static final int WIDTH = ResourceMgr.tankD.getWidth();
-    private static final int HEIGHT = ResourceMgr.tankD.getHeight();
-    private static final int SPEED = 3;
+    private static final int WIDTH = ResourceMgr.goodTankD.getWidth();
+    private static final int HEIGHT = ResourceMgr.goodTankD.getHeight();
+    private static final int SPEED = 6;
 
     // 默认坦克已创建，就能动
     private boolean moving = true;
@@ -32,20 +32,22 @@ public class Tank {
 
     public void paint(Graphics g) {
         if(living){
+            boolean isBad = this.getGroup() == Group.BAD;
             switch (dir){
                 case LEFT:
-                    g.drawImage(ResourceMgr.tankL,x,y,null);
+                    g.drawImage(isBad?ResourceMgr.badTankL:ResourceMgr.goodTankL,x,y,null);
                     break;
                 case RIGHT:
-                    g.drawImage(ResourceMgr.tankR,x,y,null);
+                    g.drawImage(isBad?ResourceMgr.badTankR:ResourceMgr.goodTankR,x,y,null);
                     break;
                 case UP:
-                    g.drawImage(ResourceMgr.tankU,x,y,null);
+                    g.drawImage(isBad?ResourceMgr.badTankU:ResourceMgr.goodTankU,x,y,null);
                     break;
                 case DOWN:
-                    g.drawImage(ResourceMgr.tankD,x,y,null);
+                    g.drawImage(isBad?ResourceMgr.badTankD:ResourceMgr.goodTankD,x,y,null);
                     break;
             }
+
             move();
         }else{
             // 坦克牺牲需要移除
