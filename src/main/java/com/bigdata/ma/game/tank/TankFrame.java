@@ -45,6 +45,7 @@ public class TankFrame extends Frame {
     public void paint(Graphics g) {
         // 绘制矩形
         myTank.paint(g);
+        myTank.moving();
     }
 
 
@@ -122,17 +123,22 @@ public class TankFrame extends Frame {
          * 通过按键事件透传移动方向
          */
         private void setMainTankDir() {
-            if(bL){
-                myTank.setDir(Dir.LEFT);
-            }
-            if(bR){
-                myTank.setDir(Dir.RIGHT);
-            }
-            if(bU){
-                myTank.setDir(Dir.UP);
-            }
-            if(bD){
-                myTank.setDir(Dir.DOWN);
+            if(!bL && !bR && !bU && !bD){
+                myTank.setToMoving(false);
+            }else{
+                myTank.setToMoving(true);
+                if(bL){
+                    myTank.setDir(Dir.LEFT);
+                }
+                if(bR){
+                    myTank.setDir(Dir.RIGHT);
+                }
+                if(bU){
+                    myTank.setDir(Dir.UP);
+                }
+                if(bD){
+                    myTank.setDir(Dir.DOWN);
+                }
             }
         }
 
