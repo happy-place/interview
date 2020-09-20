@@ -4,6 +4,10 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+/**
+ * 资源管理器
+ * 管理需要用到资源
+ */
 public class ResourceMgr {
 
     public static BufferedImage tankL,tankU,tankR,tankD;
