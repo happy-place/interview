@@ -3,8 +3,8 @@ package com.bigdata.game.tank;
 import java.awt.*;
 
 public class Tank {
-    private static final int WIDTH = 50;
-    private static final int HEIGHT = 50;
+    private static final int WIDTH = ResourceMgr.tankD.getWidth();
+    private static final int HEIGHT = ResourceMgr.tankD.getHeight();
     private static final int SPEED = 5;
 
     private boolean toMove = false;
@@ -79,24 +79,28 @@ public class Tank {
 
     public void fire() {
         // 要想让tank开火中能够像画面交出bullet，tank 对象创建时，需要持有tankFrame 对象引用
+        // 子弹中心对齐坦克中心
         int bulletX = x;
         int bulletY = y;
         switch (dir){
             case UP:
-                bulletX += HEIGHT/2;
-                bulletY += WIDTH/2;
+                bulletX += Tank.HEIGHT/2 - Bullet.HEIGHT/2;
+                bulletY += Tank.WIDTH/2 - Bullet.WIDTH/2;
                 break;
             case DOWN:
-                bulletX += HEIGHT/2;
-                bulletY += WIDTH/2;
+                bulletX += Tank.HEIGHT/2 - Bullet.HEIGHT/2;
+                bulletY += Tank.WIDTH/2 - Bullet.WIDTH/2;
                 break;
             case LEFT:
-                bulletX += WIDTH/2;
+                bulletX += Tank.WIDTH/2 - Bullet.WIDTH/2 ;
+                // 图片有点偏
+//                bulletY += HEIGHT/2 - Bullet.WIDTH/2;
                 bulletY += HEIGHT/2;
                 break;
             case RIGHT:
-                bulletX += WIDTH/2;
-                bulletY += HEIGHT/2;
+                bulletX += Tank.WIDTH/2 - Bullet.WIDTH/2 ;
+//                bulletY += Tank.HEIGHT/2 - Bullet.WIDTH/2;
+                bulletY += Tank.HEIGHT/2 ;
                 break;
             default:
                 break;
