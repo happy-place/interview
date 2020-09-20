@@ -21,6 +21,7 @@ public class Explode {
         this.x = x;
         this.y = y;
         this.tf = tf;
+        new Audio("tank/audio/explode.wav").run();
     }
 
 
@@ -29,6 +30,7 @@ public class Explode {
         if(step>=ResourceMgr.explodes.length){
             step = 0;
         }
+
     }
 
 }
