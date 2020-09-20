@@ -6,7 +6,7 @@ import java.util.Random;
 public class Tank {
     private static final int WIDTH = ResourceMgr.tankD.getWidth();
     private static final int HEIGHT = ResourceMgr.tankD.getHeight();
-    private static final int SPEED = 1;
+    private static final int SPEED = 3;
 
     // 默认坦克已创建，就能动
     private boolean moving = true;
@@ -111,14 +111,11 @@ public class Tank {
                 break;
             case LEFT:
                 bulletX += Tank.WIDTH/2 - Bullet.WIDTH/2 ;
-                // 图片有点偏
-//                bulletY += HEIGHT/2 - Bullet.WIDTH/2;
-                bulletY += HEIGHT/2;
+                bulletY += HEIGHT/2 - Bullet.WIDTH/2;
                 break;
             case RIGHT:
                 bulletX += Tank.WIDTH/2 - Bullet.WIDTH/2 ;
-//                bulletY += Tank.HEIGHT/2 - Bullet.WIDTH/2;
-                bulletY += Tank.HEIGHT/2 ;
+                bulletY += Tank.HEIGHT/2 - Bullet.WIDTH/2;
                 break;
             default:
                 break;
