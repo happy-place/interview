@@ -1,4 +1,4 @@
-package com.bigdata.ma.game.tank;
+package com.bigdata.game.tank;
 
 import java.awt.*;
 

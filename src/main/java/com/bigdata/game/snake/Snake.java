@@ -1,4 +1,4 @@
-package com.bigdata.ma.game.snake;
+package com.bigdata.game.snake;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

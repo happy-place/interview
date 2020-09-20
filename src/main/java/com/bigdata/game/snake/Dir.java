@@ -1,4 +1,4 @@
-package com.bigdata.ma.game.snake;
+package com.bigdata.game.snake;
 
 /**
  * 标记蛇移动方向

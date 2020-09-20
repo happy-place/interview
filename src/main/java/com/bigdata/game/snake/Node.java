@@ -1,21 +1,20 @@
-package com.bigdata.ma.game.snake;
+package com.bigdata.game.snake;
 
 import java.awt.*;
-import java.util.Random;
 
-/**
- * 蛇吃的东西
- */
-public class Egg {
-    // 蛋的网格坐标
+public class Node {
+
+    // 对应第几行，第几列 ，相对于白板左上角（原点位置），单位为 NodeSize
     int row,col;
-    Random ramdom = new Random();
 
-    public Egg(int row, int col) {
+
+    // 双向链表，方便加减
+    Node prev,next;
+
+    public Node(int row, int col) {
         this.row = row;
         this.col = col;
     }
-
 
     public void paint(Graphics g) {
         // get开头，set结尾 恢复现场，中间代码为具体节点展示时的逻辑
@@ -28,20 +27,9 @@ public class Egg {
         // y 与 行数有关
         int y = Yard.y + row * Yard.NodeSize;
 
-        g.setColor(Color.RED);
-        g.fillOval(x,y,Yard.NodeSize,Yard.NodeSize);
+        g.setColor(Color.BLACK);
+        g.fillRect(x,y,Yard.NodeSize,Yard.NodeSize);
 
         g.setColor(c);
     }
-
-    public void reAppear() {
-        try {
-            Thread.sleep(20);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        this.row = ramdom.nextInt(Yard.NodeSize);
-        this.col = ramdom.nextInt(Yard.NodeSize);
-    }
-
 }
