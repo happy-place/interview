@@ -14,13 +14,15 @@ public class Tank {
     private int x, y;
     private Dir dir;
 
+    private Rectangle rect;
+
     private boolean living = true;
 
     private static Random random = new Random();
 
     private Group group;
 
-    private TankFrame tf = null;
+    private TankFrame tf;
 
     public Tank(int x, int y, Dir dir,Group group,TankFrame tf) {
         this.x = x;
@@ -28,6 +30,8 @@ public class Tank {
         this.dir = dir;
         this.group = group;
         this.tf = tf;
+
+        this.rect = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
     }
 
     public void paint(Graphics g) {
@@ -49,6 +53,8 @@ public class Tank {
             }
 
             move();
+            this.rect.x = this.x;
+            this.rect.y = this.y;
         }else{
             // 坦克牺牲需要移除
             tf.tanks.remove(this);
@@ -109,18 +115,20 @@ public class Tank {
      * 边界检查
      */
     private void boundsCheck() {
-        if(this.x<0){
-            x = 0;
+        // 防止太靠边
+        int keep = 2;
+        if(this.x<keep){
+            x = keep;
         }
-        if(this.y < 30){
-            y=30;
+        if(this.y < 30 - keep){
+            y=30 - keep;
         }
-        if(this.x>TankFrame.getWIDTH() - Tank.getWIDTH()){
-            x = TankFrame.getWIDTH() - Tank.getWIDTH();
+        if(this.x>TankFrame.getWIDTH() - Tank.getWIDTH()-keep){
+            x = TankFrame.getWIDTH() - Tank.getWIDTH()-keep;
         }
 
-        if(this.y>TankFrame.getHEIGHT() - Tank.getHEIGHT()){
-            y = TankFrame.getHEIGHT() - Tank.getHEIGHT();
+        if(this.y>TankFrame.getHEIGHT() - Tank.getHEIGHT()-keep){
+            y = TankFrame.getHEIGHT() - Tank.getHEIGHT()-keep;
         }
 
     }
@@ -157,7 +165,14 @@ public class Tank {
         return group;
     }
 
+    public Rectangle getRect() {
+        return rect;
+    }
+
     public void die() {
         this.living = false;
     }
+
+
+
 }

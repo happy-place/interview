@@ -19,6 +19,8 @@ public class Bullet {
 
     private Group group ;
 
+    private Rectangle rect;
+
     // 子弹也需要持有 TankFrame 引用，来删除 tf.bullets 中的自身，避免内存溢出
     private TankFrame tf = null;
 
@@ -28,6 +30,8 @@ public class Bullet {
         this.dir = dir;
         this.group = group;
         this.tf = tf;
+
+        this.rect = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
     }
 
 
@@ -53,7 +57,11 @@ public class Bullet {
             default:
                 break;
         }
+
         move();
+
+        this.rect.x = this.x;
+        this.rect.y = this.y;
 
         // 坐标越界，生命周期结束
         if(x < 0 || x > tf.getWidth() ||y< 0 || y> tf.getHeight()){
@@ -97,11 +105,10 @@ public class Bullet {
     public void collideWith(Tank tank) {
         // 己方子弹不会伤害己方坦克
         if(tank.getGroup()==this.group){
-            return ;
+            return;
         }
-        Rectangle bulletRect = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
-        Rectangle tankRect = new Rectangle(tank.getX(),tank.getY(),Tank.getWIDTH(),Tank.getHEIGHT());
-        if (tankRect.intersects(bulletRect)) {
+
+        if (rect.intersects(tank.getRect())) {
             tank.die();
             this.die();
             int explodeX = tank.getX() + Tank.getWIDTH()/2 - Bullet.WIDTH/2;
