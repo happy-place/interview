@@ -5,7 +5,7 @@ import java.awt.*;
 public class Tank {
     private static final int WIDTH = 50;
     private static final int HEIGHT = 50;
-    private static final int SPEED = 10;
+    private static final int SPEED = 5;
 
     private boolean toMove = false;
 
@@ -22,8 +22,6 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        Color color = g.getColor();
-
         switch (dir){
             case LEFT:
                 g.drawImage(ResourceMgr.tankL,x,y,null);
@@ -38,10 +36,6 @@ public class Tank {
                 g.drawImage(ResourceMgr.tankD,x,y,null);
                 break;
         }
-
-
-
-        g.setColor(color);
         moving();
     }
 
@@ -85,6 +79,28 @@ public class Tank {
 
     public void fire() {
         // 要想让tank开火中能够像画面交出bullet，tank 对象创建时，需要持有tankFrame 对象引用
-        tf.getBullets().add(new Bullet(this.x,this.y,this.dir,tf));
+        int bulletX = x;
+        int bulletY = y;
+        switch (dir){
+            case UP:
+                bulletX += HEIGHT/2;
+                bulletY += WIDTH/2;
+                break;
+            case DOWN:
+                bulletX += HEIGHT/2;
+                bulletY += WIDTH/2;
+                break;
+            case LEFT:
+                bulletX += WIDTH/2;
+                bulletY += HEIGHT/2;
+                break;
+            case RIGHT:
+                bulletX += WIDTH/2;
+                bulletY += HEIGHT/2;
+                break;
+            default:
+                break;
+        }
+        tf.getBullets().add(new Bullet(bulletX,bulletY,this.dir,tf));
     }
 }

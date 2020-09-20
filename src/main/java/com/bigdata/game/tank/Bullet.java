@@ -8,7 +8,7 @@ import java.awt.*;
  */
 public class Bullet {
 
-    private static final int SPEED = 5;
+    private static final int SPEED = 10;
     private static final int WIDTH = 30;
     private static final int HEIGHT = 30;
 
@@ -34,14 +34,22 @@ public class Bullet {
             tf.getBullets().remove(this);
         }
 
-        // 画笔更改颜色前，先记录原来颜色
-        Color color = g.getColor();
-        // 画笔切换为红色，然后绘制圆形坦克
-        g.setColor(Color.RED);
-        g.fillOval(x, y, WIDTH, HEIGHT);
-        // 画笔切回原来颜色
-        g.setColor(color);
-
+        switch (dir){
+            case LEFT:
+                g.drawImage(ResourceMgr.bulletL,x,y,null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceMgr.bulletR,x,y,null);
+                break;
+            case UP:
+                g.drawImage(ResourceMgr.bulletU,x,y,null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceMgr.bulletD,x,y,null);
+                break;
+            default:
+                break;
+        }
         move();
 
         // 坐标越界，生命周期结束
