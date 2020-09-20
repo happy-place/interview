@@ -104,7 +104,9 @@ public class Bullet {
         if (tankRect.intersects(bulletRect)) {
             tank.die();
             this.die();
-            tf.explodes.add(new Explode(x,y,tf));
+            int explodeX = tank.getX() + Tank.getWIDTH()/2 - Bullet.WIDTH/2;
+            int explodeY = tank.getY() +  Tank.getHEIGHT()/2 - Bullet.WIDTH/2;
+            tf.explodes.add(new Explode(explodeX,explodeY,tf));
         }
     }
 

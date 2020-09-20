@@ -89,12 +89,14 @@ public class Tank {
                     break;
             }
         }
-        // 敌方坦克 1/10概率打子弹
+        // 敌方坦克 5%概率开火，10%概率改变方向
         if(this.getGroup()==Group.BAD){
             if(random.nextInt(100)>95) {
                 this.fire();
             }
-            randomDir();
+            if(random.nextInt(100)>95){
+                randomDir();
+            }
         }
     }
 
@@ -105,28 +107,8 @@ public class Tank {
     public void fire() {
         // 要想让tank开火中能够像画面交出bullet，tank 对象创建时，需要持有tankFrame 对象引用
         // 子弹中心对齐坦克中心
-        int bulletX = x;
-        int bulletY = y;
-        switch (dir){
-            case UP:
-                bulletX += Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-                bulletY += Tank.WIDTH/2 - Bullet.WIDTH/2;
-                break;
-            case DOWN:
-                bulletX += Tank.HEIGHT/2 - Bullet.HEIGHT/2;
-                bulletY += Tank.WIDTH/2 - Bullet.WIDTH/2;
-                break;
-            case LEFT:
-                bulletX += Tank.WIDTH/2 - Bullet.WIDTH/2 ;
-                bulletY += HEIGHT/2 - Bullet.WIDTH/2;
-                break;
-            case RIGHT:
-                bulletX += Tank.WIDTH/2 - Bullet.WIDTH/2 ;
-                bulletY += Tank.HEIGHT/2 - Bullet.WIDTH/2;
-                break;
-            default:
-                break;
-        }
+        int bulletX = x + Tank.WIDTH/2 - Bullet.WIDTH/2;
+        int bulletY = y +  Tank.HEIGHT/2 - Bullet.WIDTH/2;
         tf.getBullets().add(new Bullet(bulletX,bulletY, this.dir,this.group,tf));
     }
 
