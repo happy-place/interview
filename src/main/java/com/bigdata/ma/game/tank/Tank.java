@@ -12,10 +12,13 @@ public class Tank {
     private int x, y;
     private Dir dir;
 
-    public Tank(int x, int y, Dir dir) {
+    private TankFrame tf = null;
+
+    public Tank(int x, int y, Dir dir,TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tf = tf;
     }
 
     public void paint(Graphics g) {
@@ -62,5 +65,10 @@ public class Tank {
                     break;
             }
         }
+    }
+
+    public void fire() {
+        // 要想让tank开火中能够像画面交出bullet，tank 对象创建时，需要持有tankFrame 对象引用
+        tf.bullet = new Bullet(this.x,this.y,this.dir);
     }
 }

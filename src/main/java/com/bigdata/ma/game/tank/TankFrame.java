@@ -12,8 +12,8 @@ public class TankFrame extends Frame {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
 
-    private Tank myTank = new Tank(200,200,Dir.DOWN);
-    private Bullet bullet = new Bullet(300,300,Dir.DOWN);
+    Tank myTank = new Tank(200,200,Dir.DOWN,this);
+    Bullet bullet = new Bullet(300,300,Dir.DOWN);
 
     // 双缓冲解决画面闪烁问题: 图片先写入缓存，然后一次性提交给显卡
     Image offScreenImage = null;
@@ -116,6 +116,10 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_DOWN:
                     bD = false;
+                    break;
+                case KeyEvent.VK_CONTROL:
+                    // 子弹在坦克中创建，但绘制时还是交给 frame，fire 将采用策略模式封装所有操作
+                    myTank.fire();
                     break;
                 default:
                     break;
