@@ -60,9 +60,6 @@ public class Bullet {
 
         move();
 
-        this.rect.x = this.x;
-        this.rect.y = this.y;
-
         // 坐标越界，生命周期结束
         if(x < 0 || x > tf.getWidth() ||y< 0 || y> tf.getHeight()){
             this.living = false;
@@ -87,6 +84,8 @@ public class Bullet {
             default:
                 break;
         }
+        this.rect.x = this.x;
+        this.rect.y = this.y;
     }
 
     public boolean isLiving() {

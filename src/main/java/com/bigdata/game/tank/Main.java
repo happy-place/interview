@@ -10,6 +10,8 @@ public class Main {
             tankFrame.tanks.add(new Tank(50 + i*80,200,Dir.DOWN, Group.BAD,tankFrame));
         }
 
+        new Thread(()->new Audio("tank/audio/war1.wav").loop()).start();
+
         while(true){
             try {
                 // 每隔0.05秒重新绘制,底层调用 frame.paint()

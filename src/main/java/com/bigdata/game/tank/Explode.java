@@ -21,7 +21,7 @@ public class Explode {
         this.x = x;
         this.y = y;
         this.tf = tf;
-        new Thread(()->new Audio("tank/audio/explode.wav").play()).start();
+        new Thread(()->new Audio("tank/audio/explode.wav").loop()).start();
     }
 
 

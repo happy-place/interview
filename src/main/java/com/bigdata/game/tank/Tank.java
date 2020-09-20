@@ -51,10 +51,7 @@ public class Tank {
                     g.drawImage(isBad?ResourceMgr.badTankD:ResourceMgr.goodTankD,x,y,null);
                     break;
             }
-
             move();
-            this.rect.x = this.x;
-            this.rect.y = this.y;
         }else{
             // 坦克牺牲需要移除
             tf.tanks.remove(this);
@@ -108,6 +105,9 @@ public class Tank {
         }
 
         boundsCheck();
+
+        this.rect.x = this.x;
+        this.rect.y = this.y;
 
     }
 
