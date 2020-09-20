@@ -9,14 +9,18 @@ import java.awt.event.WindowEvent;
 public class TankFrame extends Frame {
 
     // 窗口尺寸
-    private static final int frameWidth = 800;
-    private static final int frameHeigth = 600;
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = 600;
 
     private Tank myTank = new Tank(200,200,Dir.DOWN);
+    private Bullet bullet = new Bullet(300,300,Dir.DOWN);
+
+    // 双缓冲解决画面闪烁问题: 图片先写入缓存，然后一次性提交给显卡
+    Image offScreenImage = null;
 
     public TankFrame() throws HeadlessException {
         // 尺寸
-        setSize(frameWidth, frameHeigth);
+        setSize(WIDTH, HEIGHT);
         // 不可缩放窗口
         setResizable(false);
         // 窗口标题
@@ -43,9 +47,9 @@ public class TankFrame extends Frame {
      */
     @Override
     public void paint(Graphics g) {
-        // 绘制矩形
+        // 需要谁，就把画笔交给谁
         myTank.paint(g);
-        myTank.moving();
+        bullet.paint(g);
     }
 
 
@@ -124,9 +128,9 @@ public class TankFrame extends Frame {
          */
         private void setMainTankDir() {
             if(!bL && !bR && !bU && !bD){
-                myTank.setToMoving(false);
+                myTank.setToMove(false);
             }else{
-                myTank.setToMoving(true);
+                myTank.setToMove(true);
                 if(bL){
                     myTank.setDir(Dir.LEFT);
                 }
@@ -141,8 +145,26 @@ public class TankFrame extends Frame {
                 }
             }
         }
-
     }
 
-
+    @Override
+    public void update(Graphics g) {
+        if(offScreenImage==null){
+            // 内存中创建图片
+            offScreenImage = this.createImage(WIDTH,HEIGHT);
+        }
+        // 获取画笔
+        Graphics gOffScreen = offScreenImage.getGraphics();
+        // 获取画笔之前颜色
+        Color color = gOffScreen.getColor();
+        // 绘制黑色图片背景
+        gOffScreen.setColor(Color.BLACK);
+        gOffScreen.fillRect(0,0,WIDTH,HEIGHT);
+        // 设置画笔之前颜色
+        gOffScreen.setColor(color);
+        // 图片写入缓存
+        paint(gOffScreen); // 往内存里话需要的东西
+        // 画完后一次性提交显卡
+        g.drawImage(offScreenImage,0,0,null);
+    }
 }

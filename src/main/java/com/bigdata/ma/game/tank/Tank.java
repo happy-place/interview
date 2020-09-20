@@ -3,11 +3,11 @@ package com.bigdata.ma.game.tank;
 import java.awt.*;
 
 public class Tank {
-    private static final int width = 50;
-    private static final int height = 50;
+    private static final int WIDTH = 50;
+    private static final int HEIGHT = 50;
     private static final int SPEED = 10;
 
-    private boolean toMoving = false;
+    private boolean toMove = false;
 
     private int x, y;
     private Dir dir;
@@ -19,7 +19,10 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        g.fillRect(x, y, width, height);
+        Color color = g.getColor();
+        g.setColor(Color.YELLOW);
+        g.fillRect(x, y, WIDTH, HEIGHT);
+        g.setColor(color);
         moving();
     }
 
@@ -31,16 +34,16 @@ public class Tank {
         this.dir = dir;
     }
 
-    public boolean isToMoving() {
-        return toMoving;
+    public boolean isToMove() {
+        return toMove;
     }
 
-    public void setToMoving(boolean toMoving) {
-        this.toMoving = toMoving;
+    public void setToMove(boolean toMove) {
+        this.toMove = toMove;
     }
 
     public void moving() {
-        if (toMoving) {
+        if (toMove) {
             // 算数运算自动实现移动效果
             switch (dir) {
                 case LEFT:
