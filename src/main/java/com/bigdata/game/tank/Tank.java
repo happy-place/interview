@@ -90,9 +90,16 @@ public class Tank {
             }
         }
         // 敌方坦克 1/10概率打子弹
-        if(random.nextInt(10)%8==1){
-            this.fire();
+        if(this.getGroup()==Group.BAD){
+            if(random.nextInt(100)>95) {
+                this.fire();
+            }
+            randomDir();
         }
+    }
+
+    private void randomDir() {
+        this.dir = Dir.values()[random.nextInt(4)];
     }
 
     public void fire() {
