@@ -9,19 +9,10 @@ import java.awt.event.WindowEvent;
 public class TankFrame extends Frame {
 
     // 窗口尺寸
-    int frameWidth = 800;
-    int frameHeigth = 600;
+    private static final int frameWidth = 800;
+    private static final int frameHeigth = 600;
 
-    // 坦克初始坐标
-    int x = 200;
-    int y = 200;
-
-    // 坦克尺寸
-    int width = 50;
-    int height = 50;
-
-    private final int SPEED = 10;
-    Dir dir = Dir.DOWN;
+    private Tank myTank = new Tank(200,200,Dir.DOWN);
 
     public TankFrame() throws HeadlessException {
         // 尺寸
@@ -53,24 +44,7 @@ public class TankFrame extends Frame {
     @Override
     public void paint(Graphics g) {
         // 绘制矩形
-        g.fillRect(x, y, width, height);
-        // 算数运算自动实现移动效果
-        switch (dir){
-            case LEFT:
-                x -= SPEED;
-                break;
-            case RIGHT:
-                x += SPEED;
-                break;
-            case UP:
-                y -= SPEED;
-                break;
-            case DOWN:
-                y += SPEED;
-                break;
-            default:
-                break;
-        }
+        myTank.paint(g);
     }
 
 
@@ -149,16 +123,16 @@ public class TankFrame extends Frame {
          */
         private void setMainTankDir() {
             if(bL){
-                dir = Dir.LEFT;
+                myTank.setDir(Dir.LEFT);
             }
             if(bR){
-                dir = Dir.RIGHT;
+                myTank.setDir(Dir.RIGHT);
             }
             if(bU){
-                dir = Dir.UP;
+                myTank.setDir(Dir.UP);
             }
             if(bD){
-                dir = Dir.DOWN;
+                myTank.setDir(Dir.DOWN);
             }
         }
 
