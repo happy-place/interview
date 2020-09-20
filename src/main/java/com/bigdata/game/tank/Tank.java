@@ -23,8 +23,9 @@ public class Tank {
 
     public void paint(Graphics g) {
         Color color = g.getColor();
-        g.setColor(Color.YELLOW);
-        g.fillRect(x, y, WIDTH, HEIGHT);
+
+        g.drawImage(ResourceMgr.tankL,x,y,null);
+
         g.setColor(color);
         moving();
     }
