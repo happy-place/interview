@@ -33,6 +33,7 @@ public class Bullet {
         if(!live){
             tf.getBullets().remove(this);
         }
+
         // 画笔更改颜色前，先记录原来颜色
         Color color = g.getColor();
         // 画笔切换为红色，然后绘制圆形坦克
@@ -40,6 +41,16 @@ public class Bullet {
         g.fillOval(x, y, WIDTH, HEIGHT);
         // 画笔切回原来颜色
         g.setColor(color);
+
+        move();
+
+        // 坐标越界，生命周期结束
+        if(x < 0 || x > tf.getWidth() ||y< 0 || y> tf.getHeight()){
+            this.live = false;
+        }
+    }
+
+    private void move(){
         // 算数运算自动实现移动效果
         switch (dir) {
             case LEFT:
@@ -57,11 +68,9 @@ public class Bullet {
             default:
                 break;
         }
+    }
 
-        // 坐标越界，生命周期结束
-        if(x < 0 || x > tf.getWidth() ||y< 0 || y> tf.getHeight()){
-            this.live = false;
-        }
-
+    public boolean isLive() {
+        return live;
     }
 }

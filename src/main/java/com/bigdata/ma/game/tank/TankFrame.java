@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class TankFrame extends Frame {
@@ -55,9 +56,22 @@ public class TankFrame extends Frame {
         drawString(g);
         myTank.paint(g);
 
+        // 绘制子弹
+        // 方案1：普通for循环，bullet paint() 内部进行越界删除
         for(int i=0;i<bullets.size();i++){
             bullets.get(i).paint(g);
         }
+
+        // 方案2：迭代器for循环，迭代过程中，元素只能被迭代器删除，不能自己删除
+//        for(Iterator<Bullet> it=bullets.iterator();it.hasNext();){
+//            Bullet bullet = it.next();
+//            if(!bullet.isLive()){
+//               it.remove();
+//            }else{
+//                bullet.paint(g);
+//            }
+//        }
+
     }
 
     private void drawString(Graphics g){
