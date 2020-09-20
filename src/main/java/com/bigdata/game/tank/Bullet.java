@@ -15,7 +15,7 @@ public class Bullet {
     private int x,y;
     private Dir dir;
 
-    private boolean live = true;
+    private boolean living = true;
 
     // 子弹也需要持有 TankFrame 引用，来删除 tf.bullets 中的自身，避免内存溢出
     private TankFrame tf = null;
@@ -30,7 +30,7 @@ public class Bullet {
 
     public void paint(Graphics g) {
         // 生命周期结束吗，子弹从容器删除，避免内存溢出
-        if(!live){
+        if(!living){
             tf.getBullets().remove(this);
         }
 
@@ -54,7 +54,7 @@ public class Bullet {
 
         // 坐标越界，生命周期结束
         if(x < 0 || x > tf.getWidth() ||y< 0 || y> tf.getHeight()){
-            this.live = false;
+            this.living = false;
         }
     }
 
@@ -78,7 +78,26 @@ public class Bullet {
         }
     }
 
-    public boolean isLive() {
-        return live;
+    public boolean isLiving() {
+        return living;
+    }
+
+
+    /**
+     * 子弹与坦克进行碰撞
+     * 矩形存在交集，碰撞成功
+     * @param tank
+     */
+    public void collideWith(Tank tank) {
+        Rectangle bulletRect = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
+        Rectangle tankRect = new Rectangle(tank.getX(),tank.getY(),Tank.getWIDTH(),Tank.getHEIGHT());
+        if (tankRect.intersects(bulletRect)) {
+            tank.die();
+            this.die();
+        }
+    }
+
+    private void die() {
+        this.living = false;
     }
 }

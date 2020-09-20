@@ -12,6 +12,8 @@ public class Tank {
     private int x, y;
     private Dir dir;
 
+    private boolean living = true;
+
     private TankFrame tf = null;
 
     public Tank(int x, int y, Dir dir,TankFrame tf) {
@@ -22,21 +24,26 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        switch (dir){
-            case LEFT:
-                g.drawImage(ResourceMgr.tankL,x,y,null);
-                break;
-            case RIGHT:
-                g.drawImage(ResourceMgr.tankR,x,y,null);
-                break;
-            case UP:
-                g.drawImage(ResourceMgr.tankU,x,y,null);
-                break;
-            case DOWN:
-                g.drawImage(ResourceMgr.tankD,x,y,null);
-                break;
+        if(living){
+            switch (dir){
+                case LEFT:
+                    g.drawImage(ResourceMgr.tankL,x,y,null);
+                    break;
+                case RIGHT:
+                    g.drawImage(ResourceMgr.tankR,x,y,null);
+                    break;
+                case UP:
+                    g.drawImage(ResourceMgr.tankU,x,y,null);
+                    break;
+                case DOWN:
+                    g.drawImage(ResourceMgr.tankD,x,y,null);
+                    break;
+            }
+            moving();
+        }else{
+            // 坦克牺牲需要移除
+            tf.tanks.remove(this);
         }
-        moving();
     }
 
     public Dir getDir() {
@@ -106,5 +113,25 @@ public class Tank {
                 break;
         }
         tf.getBullets().add(new Bullet(bulletX,bulletY,this.dir,tf));
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public static int getWIDTH() {
+        return WIDTH;
+    }
+
+    public static int getHEIGHT() {
+        return HEIGHT;
+    }
+
+    public void die() {
+        this.living = false;
     }
 }

@@ -14,7 +14,9 @@ public class TankFrame extends Frame {
     private static final int HEIGHT = 600;
     private static final int WIDTH = 800;
 
-    Tank myTank = new Tank(200,200,Dir.DOWN,this);
+    Tank myTank = new Tank(200,400,Dir.DOWN,this);
+
+    List<Tank> tanks = new ArrayList<>();
 
     // 坦克发射子弹，换成批
     private List<Bullet> bullets = new ArrayList<>();
@@ -61,22 +63,30 @@ public class TankFrame extends Frame {
             bullets.get(i).paint(g);
         }
 
-        // 方案2：迭代器for循环，迭代过程中，元素只能被迭代器删除，不能自己删除
-//        for(Iterator<Bullet> it=bullets.iterator();it.hasNext();){
-//            Bullet bullet = it.next();
-//            if(!bullet.isLive()){
-//               it.remove();
-//            }else{
-//                bullet.paint(g);
-//            }
-//        }
+        // 绘制地方坦克
+        for(int i=0;i<tanks.size();i++){
+            tanks.get(i).paint(g);
+        }
+
+        // 绘制子弹
+        // 方案1：普通for循环，bullet paint() 内部进行越界删除
+        for(int i=0;i<bullets.size();i++){
+            for(int j=0;j<tanks.size();j++){
+                bullets.get(i).collideWith(tanks.get(j));
+            }
+
+        }
 
     }
 
+    /**
+     * 显示打印坦克数量，子弹数据在画框，防止内存溢出
+     * @param g
+     */
     private void drawString(Graphics g){
         Color color = g.getColor();
         g.setColor(Color.WHITE);
-        g.drawString("子弹数量："+bullets.size(),10,60);
+        g.drawString("子弹数量："+bullets.size()+"，坦克数量："+tanks.size(),10,60);
         g.setColor(color);
     }
 
