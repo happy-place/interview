@@ -100,6 +100,29 @@ public class Tank {
                 randomDir();
             }
         }
+
+        boundsCheck();
+
+    }
+
+    /**
+     * 边界检查
+     */
+    private void boundsCheck() {
+        if(this.x<0){
+            x = 0;
+        }
+        if(this.y < 30){
+            y=30;
+        }
+        if(this.x>TankFrame.getWIDTH() - Tank.getWIDTH()){
+            x = TankFrame.getWIDTH() - Tank.getWIDTH();
+        }
+
+        if(this.y>TankFrame.getHEIGHT() - Tank.getHEIGHT()){
+            y = TankFrame.getHEIGHT() - Tank.getHEIGHT();
+        }
+
     }
 
     private void randomDir() {
