@@ -18,6 +18,8 @@ public class TankFrame extends Frame {
 
     List<Tank> tanks = new ArrayList<>();
 
+    Explode explode = new Explode(100,100,this);
+
     // 坦克发射子弹，换成批
     private List<Bullet> bullets = new ArrayList<>();
 
@@ -56,7 +58,7 @@ public class TankFrame extends Frame {
         // 需要谁，就把画笔交给谁
         drawString(g);
         myTank.paint(g);
-
+        explode.paint(g);
         // 绘制子弹
         // 方案1：普通for循环，bullet paint() 内部进行越界删除
         for(int i=0;i<bullets.size();i++){
