@@ -14,7 +14,7 @@ public class TankFrame extends Frame {
     private static final int HEIGHT = 600;
     private static final int WIDTH = 800;
 
-    Tank myTank = new Tank(200,400,Dir.DOWN,this);
+    Tank myTank = new Tank(200,400,Dir.DOWN,Group.GOOD,this);
 
     List<Tank> tanks = new ArrayList<>();
 
@@ -86,7 +86,8 @@ public class TankFrame extends Frame {
     private void drawString(Graphics g){
         Color color = g.getColor();
         g.setColor(Color.WHITE);
-        g.drawString("子弹数量："+bullets.size()+"，坦克数量："+tanks.size(),10,60);
+        g.drawString("子弹数量："+bullets.size(),10,60);
+        g.drawString("坦克数量："+tanks.size(),10,80);
         g.setColor(color);
     }
 
@@ -169,9 +170,9 @@ public class TankFrame extends Frame {
          */
         private void setMainTankDir() {
             if(!bL && !bR && !bU && !bD){
-                myTank.setToMove(false);
+                myTank.setMoving(false);
             }else{
-                myTank.setToMove(true);
+                myTank.setMoving(true);
                 if(bL){
                     myTank.setDir(Dir.LEFT);
                 }

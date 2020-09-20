@@ -1,25 +1,32 @@
 package com.bigdata.game.tank;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Tank {
     private static final int WIDTH = ResourceMgr.tankD.getWidth();
     private static final int HEIGHT = ResourceMgr.tankD.getHeight();
-    private static final int SPEED = 5;
+    private static final int SPEED = 1;
 
-    private boolean toMove = false;
+    // 默认坦克已创建，就能动
+    private boolean moving = true;
 
     private int x, y;
     private Dir dir;
 
     private boolean living = true;
 
+    private static Random random = new Random();
+
+    private Group group;
+
     private TankFrame tf = null;
 
-    public Tank(int x, int y, Dir dir,TankFrame tf) {
+    public Tank(int x, int y, Dir dir,Group group,TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tf = tf;
     }
 
@@ -39,7 +46,7 @@ public class Tank {
                     g.drawImage(ResourceMgr.tankD,x,y,null);
                     break;
             }
-            moving();
+            move();
         }else{
             // 坦克牺牲需要移除
             tf.tanks.remove(this);
@@ -54,16 +61,16 @@ public class Tank {
         this.dir = dir;
     }
 
-    public boolean isToMove() {
-        return toMove;
+    public boolean isMoving() {
+        return moving;
     }
 
-    public void setToMove(boolean toMove) {
-        this.toMove = toMove;
+    public void setMoving(boolean moving) {
+        this.moving = moving;
     }
 
-    public void moving() {
-        if (toMove) {
+    public void move() {
+        if (moving) {
             // 算数运算自动实现移动效果
             switch (dir) {
                 case LEFT:
@@ -81,6 +88,10 @@ public class Tank {
                 default:
                     break;
             }
+        }
+        // 敌方坦克 1/10概率打子弹
+        if(random.nextInt(10)%8==1){
+            this.fire();
         }
     }
 
@@ -112,7 +123,7 @@ public class Tank {
             default:
                 break;
         }
-        tf.getBullets().add(new Bullet(bulletX,bulletY,this.dir,tf));
+        tf.getBullets().add(new Bullet(bulletX,bulletY, this.dir,this.group,tf));
     }
 
     public int getX() {
@@ -129,6 +140,10 @@ public class Tank {
 
     public static int getHEIGHT() {
         return HEIGHT;
+    }
+
+    public Group getGroup() {
+        return group;
     }
 
     public void die() {

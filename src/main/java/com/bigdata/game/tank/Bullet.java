@@ -17,13 +17,16 @@ public class Bullet {
 
     private boolean living = true;
 
+    private Group group ;
+
     // 子弹也需要持有 TankFrame 引用，来删除 tf.bullets 中的自身，避免内存溢出
     private TankFrame tf = null;
 
-    public Bullet(int x, int y, Dir dir,TankFrame tf) {
+    public Bullet(int x, int y, Dir dir,Group group,TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tf = tf;
     }
 
@@ -82,6 +85,9 @@ public class Bullet {
         return living;
     }
 
+    public Group getGroup() {
+        return group;
+    }
 
     /**
      * 子弹与坦克进行碰撞
@@ -89,6 +95,10 @@ public class Bullet {
      * @param tank
      */
     public void collideWith(Tank tank) {
+        // 己方子弹不会伤害己方坦克
+        if(tank.getGroup()==this.group){
+            return ;
+        }
         Rectangle bulletRect = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
         Rectangle tankRect = new Rectangle(tank.getX(),tank.getY(),Tank.getWIDTH(),Tank.getHEIGHT());
         if (tankRect.intersects(bulletRect)) {
