@@ -18,7 +18,7 @@ public class TankFrame extends Frame {
 
     List<Tank> tanks = new ArrayList<>();
 
-    Explode explode = new Explode(100,100,this);
+    List<Explode> explodes = new ArrayList<>();
 
     // 坦克发射子弹，换成批
     private List<Bullet> bullets = new ArrayList<>();
@@ -58,7 +58,7 @@ public class TankFrame extends Frame {
         // 需要谁，就把画笔交给谁
         drawString(g);
         myTank.paint(g);
-        explode.paint(g);
+
         // 绘制子弹
         // 方案1：普通for循环，bullet paint() 内部进行越界删除
         for(int i=0;i<bullets.size();i++){
@@ -70,13 +70,18 @@ public class TankFrame extends Frame {
             tanks.get(i).paint(g);
         }
 
-        // 绘制子弹
+
+        // 绘制爆炸
+        for(int i=0;i<explodes.size();i++){
+            explodes.get(i).paint(g);
+        }
+
+        // 碰撞检测
         // 方案1：普通for循环，bullet paint() 内部进行越界删除
         for(int i=0;i<bullets.size();i++){
             for(int j=0;j<tanks.size();j++){
                 bullets.get(i).collideWith(tanks.get(j));
             }
-
         }
 
     }
@@ -90,6 +95,7 @@ public class TankFrame extends Frame {
         g.setColor(Color.WHITE);
         g.drawString("子弹数量："+bullets.size(),10,60);
         g.drawString("坦克数量："+tanks.size(),10,80);
+        g.drawString("爆炸数量："+explodes.size(),10,100);
         g.setColor(color);
     }
 
