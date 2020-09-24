@@ -6,7 +6,7 @@ import java.util.Random;
 public class Tank {
     private static final int WIDTH = ResourceMgr.goodTankD.getWidth();
     private static final int HEIGHT = ResourceMgr.goodTankD.getHeight();
-    private static final int SPEED = 6;
+    private static final int SPEED = PropertyMgr.getInt("tankSpeed");
 
     // 默认坦克已创建，就能动
     private boolean moving = true;

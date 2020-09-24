@@ -11,8 +11,8 @@ import java.util.List;
 public class TankFrame extends Frame {
 
     // 窗口尺寸
-    private static final int HEIGHT = 1080;
-    private static final int WIDTH = 960;
+    private static final int HEIGHT = PropertyMgr.getInt("gameHeight");
+    private static final int WIDTH = PropertyMgr.getInt("gameWidth");
 
     Tank myTank = new Tank(200,400,Dir.DOWN,Group.GOOD,this);
 
